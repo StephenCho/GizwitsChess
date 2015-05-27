@@ -31,6 +31,26 @@
     }
   }
   
+  function drawShapeT(){
+    var canvas = document.getElementById('board');
+   	cwidth = canvas.width/8;
+   	cheight = canvas.height/8;
+   	cx = canvas.offsetLeft + 20;
+    cy = canvas.offsetTop + 20;
+ 
+    if (canvas.getContext){
+      ctx = canvas.getContext('2d');
+  	  for(var i = 0; i < 8; i++){
+  	  	drawLineGrid(i);
+  	  }
+  	  initGridLocation();
+  	  initGridChess();
+  	  initieces();
+    } else {
+      alert('You need Safari or Firefox 1.5+ to see this game.');
+    }
+  }
+  
   function getY(y){
   	return cy + (y * cheight) + 15;
   }
@@ -213,26 +233,6 @@
 	setLocation(gridchess['16'], 1198392422, true);
   }
   
-//function move(name, location){
-//	var doc=document.getElementById(name);
-//	var isOk = false;
-//	while(!isOk){
-//		if(gridlocation[location].x > doc.style.left){
-//			doc.style.left = doc.style.left + 10;
-//		}else{
-//			doc.style.left = gridlocation[location].x;
-//		}
-//	  	if(gridlocation[location].y > doc.style.top){
-//			doc.style.top = doc.style.top + 10;
-//		}else{
-//			doc.style.top = gridlocation[location].y;
-//		}
-//		if(gridlocation[location].y >= doc.style.top && gridlocation[location].x >= doc.style.left){
-//			isOk = true;
-//		}
-//	}
-//}
-  
   function setLocation(name, location, isAlive){
   	var doc=document.getElementById(name);
 	doc.style.display = isAlive ? "block" : "none";
@@ -398,43 +398,43 @@
 </style>
 </head>
  
-<body onload="drawShape();">
+<body onload="drawShape();" onresize="drawShapeT();">
   <div>
     <img src="image/logo2.png"/><br />
     <canvas id="board" width="800px" height="800px"></canvas>
-    <img src="image/black_tower.png" id="blacktower1" style="position: absolute;"/>
-    <img src="image/black_tower.png" id="blacktower2" style="position: absolute;"/>
-    <img src="image/black_horse.png" id="blackhorse1" style="position: absolute;"/>
-    <img src="image/black_horse.png" id="blackhorse2" style="position: absolute;"/>
-    <img src="image/black_phase.png" id="blackphase1" style="position: absolute;"/>
-    <img src="image/black_phase.png" id="blackphase2" style="position: absolute;"/>
-    <img src="image/black_king.png" id="blackking" style="position: absolute;"/>
-    <img src="image/black_queen.png" id="blackqueen" style="position: absolute;"/>
-    <img src="image/black_soldiers.png" id="blacksoldiers1" style="position: absolute;"/>
-    <img src="image/black_soldiers.png" id="blacksoldiers2" style="position: absolute;"/>
-    <img src="image/black_soldiers.png" id="blacksoldiers3" style="position: absolute;"/>
-    <img src="image/black_soldiers.png" id="blacksoldiers4" style="position: absolute;"/>
-    <img src="image/black_soldiers.png" id="blacksoldiers5" style="position: absolute;"/>
-    <img src="image/black_soldiers.png" id="blacksoldiers6" style="position: absolute;"/>
-    <img src="image/black_soldiers.png" id="blacksoldiers7" style="position: absolute;"/>
-    <img src="image/black_soldiers.png" id="blacksoldiers8" style="position: absolute;"/>
+    <img src="image/black_tower.png" id="blacktower1" style="position: absolute;display:none;"/>
+    <img src="image/black_tower.png" id="blacktower2" style="position: absolute;display:none;"/>
+    <img src="image/black_horse.png" id="blackhorse1" style="position: absolute;display:none;"/>
+    <img src="image/black_horse.png" id="blackhorse2" style="position: absolute;display:none;"/>
+    <img src="image/black_phase.png" id="blackphase1" style="position: absolute;display:none;"/>
+    <img src="image/black_phase.png" id="blackphase2" style="position: absolute;display:none;"/>
+    <img src="image/black_king.png" id="blackking" style="position: absolute;display:none;"/>
+    <img src="image/black_queen.png" id="blackqueen" style="position: absolute;display:none;"/>
+    <img src="image/black_soldiers.png" id="blacksoldiers1" style="position: absolute;display:none;"/>
+    <img src="image/black_soldiers.png" id="blacksoldiers2" style="position: absolute;display:none;"/>
+    <img src="image/black_soldiers.png" id="blacksoldiers3" style="position: absolute;display:none;"/>
+    <img src="image/black_soldiers.png" id="blacksoldiers4" style="position: absolute;display:none;"/>
+    <img src="image/black_soldiers.png" id="blacksoldiers5" style="position: absolute;display:none;"/>
+    <img src="image/black_soldiers.png" id="blacksoldiers6" style="position: absolute;display:none;"/>
+    <img src="image/black_soldiers.png" id="blacksoldiers7" style="position: absolute;display:none;"/>
+    <img src="image/black_soldiers.png" id="blacksoldiers8" style="position: absolute;display:none;"/>
     
-    <img src="image/white_tower.png" id="whitetower1" style="position: absolute;"/>
-    <img src="image/white_tower.png" id="whitetower2" style="position: absolute;"/>
-    <img src="image/white_horse.png" id="whitehorse1" style="position: absolute;"/>
-    <img src="image/white_horse.png" id="whitehorse2" style="position: absolute;"/>
-    <img src="image/white_phase.png" id="whitephase1" style="position: absolute;"/>
-    <img src="image/white_phase.png" id="whitephase2" style="position: absolute;"/>
-    <img src="image/white_king.png" id="whiteking" style="position: absolute;"/>
-    <img src="image/white_queen.png" id="whitequeen" style="position: absolute;"/>
-    <img src="image/white_soldiers.png" id="whitesoldiers1" style="position: absolute;"/>
-    <img src="image/white_soldiers.png" id="whitesoldiers2" style="position: absolute;"/>
-    <img src="image/white_soldiers.png" id="whitesoldiers3" style="position: absolute;"/>
-    <img src="image/white_soldiers.png" id="whitesoldiers4" style="position: absolute;"/>
-    <img src="image/white_soldiers.png" id="whitesoldiers5" style="position: absolute;"/>
-    <img src="image/white_soldiers.png" id="whitesoldiers6" style="position: absolute;"/>
-    <img src="image/white_soldiers.png" id="whitesoldiers7" style="position: absolute;"/>
-    <img src="image/white_soldiers.png" id="whitesoldiers8" style="position: absolute;"/>
+    <img src="image/white_tower.png" id="whitetower1" style="position: absolute;display:none;"/>
+    <img src="image/white_tower.png" id="whitetower2" style="position: absolute;display:none;"/>
+    <img src="image/white_horse.png" id="whitehorse1" style="position: absolute;display:none;"/>
+    <img src="image/white_horse.png" id="whitehorse2" style="position: absolute;display:none;"/>
+    <img src="image/white_phase.png" id="whitephase1" style="position: absolute;display:none;"/>
+    <img src="image/white_phase.png" id="whitephase2" style="position: absolute;display:none;"/>
+    <img src="image/white_king.png" id="whiteking" style="position: absolute;display:none;"/>
+    <img src="image/white_queen.png" id="whitequeen" style="position: absolute;display:none;"/>
+    <img src="image/white_soldiers.png" id="whitesoldiers1" style="position: absolute;display:none;"/>
+    <img src="image/white_soldiers.png" id="whitesoldiers2" style="position: absolute;display:none;"/>
+    <img src="image/white_soldiers.png" id="whitesoldiers3" style="position: absolute;display:none;"/>
+    <img src="image/white_soldiers.png" id="whitesoldiers4" style="position: absolute;display:none;"/>
+    <img src="image/white_soldiers.png" id="whitesoldiers5" style="position: absolute;display:none;"/>
+    <img src="image/white_soldiers.png" id="whitesoldiers6" style="position: absolute;display:none;"/>
+    <img src="image/white_soldiers.png" id="whitesoldiers7" style="position: absolute;display:none;"/>
+    <img src="image/white_soldiers.png" id="whitesoldiers8" style="position: absolute;display:none;"/>
     <!--<span id="fuck" style="color:yellow">123</span>-->
   </div>
 </body>
