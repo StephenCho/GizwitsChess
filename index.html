@@ -241,7 +241,7 @@
   	doc.style.top = gridlocation[location].y;
   }
   
-  function setMoveLocation(name, location, isalive) {
+  function setMoveLocation(name, location, isAlive) {
     var doc=document.getElementById(name);
     doc.style.display = isAlive ? "block" : "none";
     intervalTime = self.setInterval("move('"+name+"', "+location+")",8);
