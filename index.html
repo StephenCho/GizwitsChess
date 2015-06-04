@@ -9,6 +9,7 @@
   var gridchess;
   var websocket;
   var heartbeatTimerId;
+  var intervalTime;
   
   function drawShape(){
     var canvas = document.getElementById('board');
@@ -240,6 +241,42 @@
   	doc.style.top = gridlocation[location].y;
   }
   
+  function setMoveLocation(name, location, isalive) {
+    var doc=document.getElementById(name);
+    doc.style.display = isAlive ? "block" : "none";
+    intervalTime = self.setInterval("move('"+name+"', "+location+")",8);
+  }
+
+  function move(name, location){
+      var doc=document.getElementById(name);
+      var isOkx = false;
+      var isOky = false;
+      
+      if((parseInt(doc.style.left,10) + 10 <= gridlocation[location].x + 20 && parseInt(doc.style.left,10) - 10 >= gridlocation[location].x - 10) ||
+            (parseInt(doc.style.left,10) + 10 <= gridlocation[location].x + 10 && parseInt(doc.style.left,10) - 10 >= gridlocation[location].x - 20)){
+          doc.style.left = gridlocation[location].x;
+          isOkx = true;
+      }else if(parseInt(doc.style.left,10) < gridlocation[location].x){
+          doc.style.left = parseInt(doc.style.left,10) + 10;
+      }else if(parseInt(doc.style.left,10) > gridlocation[location].x){
+          doc.style.left = parseInt(doc.style.left,10) - 10
+      }
+      
+      if((parseInt(doc.style.top,10) + 10 <= gridlocation[location].y + 20 && parseInt(doc.style.top,10) - 10 >= gridlocation[location].y - 10) ||
+            (parseInt(doc.style.top,10) + 10 <= gridlocation[location].y + 10 && parseInt(doc.style.top,10) - 10 >= gridlocation[location].y - 20)){
+          isOky = true;
+          doc.style.top = gridlocation[location].y;
+      }else if(parseInt(doc.style.top,10) < gridlocation[location].y){
+          doc.style.top = parseInt(doc.style.top,10) + 10;
+      }else if(parseInt(doc.style.top,10) > gridlocation[location].y){
+          doc.style.top = parseInt(doc.style.top,10) - 10;
+      }
+      
+      if(isOky && isOkx){
+         clearInterval(intervalTime);
+      }
+  }
+  
   function initWebSocket(){
     websocket = new WebSocket("ws://m2m.gizwits.com:8080/ws/app/v1");
 
@@ -304,6 +341,7 @@
 	function onMessage(evt) 
 	{
 	    var res = JSON.parse(evt.data);
+//	    alert(JSON.stringify(evt));
 	    switch(res.cmd)
 	    {
 	        case "pong":
@@ -331,7 +369,7 @@
 				     	where = where + "" + e.toString(16);
 		        	}
 				})  
-	        	setLocation(gridchess[res.data.attrs.ChessID], parseInt(where,16), res.data.attrs.Deathflag);
+	        	setMoveLocation(gridchess[res.data.attrs.ChessID], parseInt(where,16), res.data.attrs.Deathflag);
 	            break;
 	    }
 	};
